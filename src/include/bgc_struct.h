@@ -122,7 +122,9 @@ typedef struct
     double soilw;          /* (kgH2O/m2) water stored in soil */
     			   ///////*added by Y.He Oct/29/14*////////
     double soilWobs;	   /*(kgH2)/m2) water stored in soil */
-    
+    double soilw_sat_obs;  /*(kgH2O/m2) soil water at saturation*/
+    double soilw_fc_obs;   /*(kgH2O/m2) soil water at field capacity*/
+
     double snoww;          /* (kgH2O/m2) water stored in snowpack */
     double canopyw;        /* (kgH2O/m2) water stored on canopy */
     double prcp_src;       /* (kgH2O/m2) SUM of precipitation */

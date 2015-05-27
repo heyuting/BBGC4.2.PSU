@@ -19,13 +19,13 @@ wflux_struct* wf)
 	/* water in excess of saturation to outflow */
 	//edited by Y.He, this wf->soilw_outflow_dummy is calculated with obs soil moisture, and will be used for calculating N leaching
 	//change ws->soilw to ws->soilWobs
-	if (ws->soilWobs > sitec->soilw_sat)  
+	if (ws->soilWobs > ws->soilw_sat_obs)  
 	{
-		wf->soilw_outflow_dummy = ws->soilWobs - sitec->soilw_sat;
+		wf->soilw_outflow_dummy = ws->soilWobs - ws->soilw_sat_obs;
 	}
-	else if (ws->soilWobs > sitec->soilw_fc)
+	else if (ws->soilWobs > ws->soilw_fc_obs)
 	{
-		wf->soilw_outflow_dummy = 0.5 *(ws->soilWobs - sitec->soilw_fc);
+		wf->soilw_outflow_dummy = 0.5 *(ws->soilWobs - ws->soilw_fc_obs);
 	}
 	else
 	{
