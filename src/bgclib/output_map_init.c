@@ -62,7 +62,7 @@ psn_struct* psn_sun, psn_struct* psn_shade, summary_struct* summary)
 		output_map[26] = &ws->snowsubl_snk;
 		output_map[27] = &ws->canopyevap_snk;
 		output_map[28] = &ws->trans_snk;
-		
+	 	output_map[29] = &ws->soilWobs;	
 		/* water flux variables */
 		output_map[35] = &wf->prcp_to_canopyw;
 		output_map[36] = &wf->prcp_to_soilw;

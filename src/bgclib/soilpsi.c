@@ -43,8 +43,8 @@ double* vwc_out, wstate_struct* ws)
 	int ok=1;
 	double vwc,psi_temp1,psi_temp2;
 	double Alpha, Beta, Theta_r, Theta_s, fc;// van Genuchten parameters
-/*
-	//site 15 - Valley - Ernest
+
+/*	//site 15 - Valley - Ernest
 	Alpha = 0.046;
 	Beta = 1.28;
 	Theta_s = 0.583;
@@ -70,20 +70,21 @@ double* vwc_out, wstate_struct* ws)
 	Theta_s = 0.306;
 	Theta_r = 0.014; 
 	fc=0.233;
-
+*/
 	//site 61 - Valley - Blairton
         Alpha =0.03;
         Beta = 1.35;
         Theta_s = 0.384;
         Theta_r = 0.028;
 	fc = 0.370;
-*/
-	//site 74 - Ridgetop - Weikert
+/*
+	//site 74 - Ridgetop - Weikert/
         Alpha = 0.138;//0.095
         Beta = 1.22;//1.34
         Theta_s = 0.379;//0.239
         Theta_r = 0.1*Theta_s;//0.005
-	fc = 0.358;
+//	fc = 0.156;//Calculated from water potential at -33kPa/
+*/
 
 	/* convert kg/m2 --> m3/m2 --> m3/m3 */
 	vwc = (soilWobs) / (1000.0 * sitec->soil_depth);//inputs are in %
@@ -104,8 +105,7 @@ double* vwc_out, wstate_struct* ws)
 	*psi = psi_temp2*0.01*9.8*1000/1000000; //units in MPa
 	
 	ws->soilw_sat_obs = Theta_s*sitec->soil_depth*1000;
-	ws->soilw_fc_obs = fc*sitec->soil_depth*1000;//another option is to convert from -33kPa
-	
+	ws->soilw_fc_obs = fc*sitec->soil_depth*1000;
 	//printf("psi_temp1=%f\n",psi_temp1);
 	return(!ok);
 }

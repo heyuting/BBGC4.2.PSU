@@ -35,7 +35,10 @@ wflux_struct* wf)
 	
 	//to conserve mass of water, Y. He, Jun 08, 2015
 	wf->soilw_outflow_dummy = wf->soilw_outflow + ws->soilw - ws->soilWobs;
-	
+	if (wf->soilw_outflow_dummy < 0.0)
+	{
+		wf->soilw_outflow_dummy = 0.0;
+	}	
 	return(!ok);
 }
 
