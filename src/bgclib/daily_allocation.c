@@ -9,7 +9,7 @@ Revisions from version 4.1.2:
 	code redundency.
 Revisions from version 4.1.1:
 	daily_allocation.c:
-	heterotrophic respiration fractions now coming from bgc_conbstants.h
+	heterotrophic respiration fractions now coming from bgc_constants.h
 	spinup_daily_allocation.c:
 	Using the same treatment of DAYSNDEPLOY, DAYSCRECOVER, and BULK_DENITRIF_PROPORTION
 	as in the non-spinup code.  This had been left out of the previous code version.

@@ -11,7 +11,7 @@ See copyright.txt for Copyright information
 #include "bgc.h"
 
 
-int daily_water_state_update(wflux_struct* wf, wstate_struct* ws)
+int daily_water_state_update(wflux_struct* wf, wstate_struct* ws, const siteconst_struct* sitec)
 {
 	/* daily update of the water state variables */
 	 
@@ -48,11 +48,19 @@ int daily_water_state_update(wflux_struct* wf, wstate_struct* ws)
 	/* outflow */
 	ws->outflow_snk    += wf->soilw_outflow;
 	ws->soilw          -= wf->soilw_outflow;
-	
+	ws->outflow_dummy_snk += wf->soilw_outflow_dummy;
+
+	if (ws->soilw > sitec->soilw_sat)
+	{
+		wf->soilw_outflow += (ws->soilw - sitec->soilw_sat);
+		ws->outflow_snk += (ws->soilw - sitec->soilw_sat);
+		ws->soilw = sitec->soilw_sat;
+	}
+
 	/* the following special case prevents evaporation under very
 	dry conditions from causing a negative soilwater content */
 //	if (ws->soilw < 0.0)        /* negative soilwater */
-	if (ws->soilw < 100) 	//we should use theta_r instead of 0, Y.He 06/30/15
+	if (ws->soilw < sitec->obs_theta_r*sitec->soil_depth*1000) 	//we should use theta_r instead of 0, Y.He 06/30/15
 	{
 		/* add back the evaporation and transpiration fluxes, and
 		set these fluxes to 0.0 */

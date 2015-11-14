@@ -78,7 +78,7 @@ nflux_struct* nf, nstate_struct* ns, epconst_struct* epc, epvar_struct* epv,
 ntemp_struct* nt, double naddfrac);
 int annual_rates(const epconst_struct* epc, epvar_struct* epv);
 int growth_resp(epconst_struct* epc, cflux_struct* cf);
-int daily_water_state_update(wflux_struct* wf, wstate_struct* ws);
+int daily_water_state_update(wflux_struct* wf, wstate_struct* ws, const siteconst_struct* sitec);
 int daily_carbon_state_update(cflux_struct* cf, cstate_struct* cs,
 int alloc, int woody, int evergreen);
 int daily_nitrogen_state_update(nflux_struct* nf, nstate_struct* ns,

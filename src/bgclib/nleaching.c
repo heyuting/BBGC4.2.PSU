@@ -30,9 +30,12 @@ wflux_struct* wf)
 	if (wf->soilw_outflow)
 	{
 		soilwater_nconc = MOBILEN_PROPORTION * ns->sminn/ws->soilWobs;
+		//if use model water outflow, then use model soilw to calculate n concentration
 		//change ws->soilw to ws->soilWobs;
-	//	nf->sminn_leached = soilwater_nconc * wf->soilw_outflow; //(original)
-		nf->sminn_leached = soilwater_nconc * wf->soilw_outflow_dummy;
+		//compare the results of these two calculations of nitrogen leaching
+		//see how much impact it has. Oct 27 2015
+		nf->sminn_leached = soilwater_nconc * wf->soilw_outflow; //(original)
+		//nf->sminn_leached = soilwater_nconc * wf->soilw_outflow_dummy;
 		/* update state variables */
 		ns->nleached_snk += nf->sminn_leached;
 		ns->sminn        -= nf->sminn_leached;

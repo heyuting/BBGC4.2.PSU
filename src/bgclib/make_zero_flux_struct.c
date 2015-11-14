@@ -26,7 +26,7 @@ nflux_struct* nf)
 	wf->soilw_evap = 0.0;
 	wf->soilw_trans = 0.0;
 	wf->soilw_outflow = 0.0;
-	
+	wf->soilw_outflow = 0.0;	
 	/* daily carbon fluxes */
 	cf->m_leafc_to_litr1c = 0.0;
 	cf->m_leafc_to_litr2c = 0.0;

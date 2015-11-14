@@ -15,7 +15,7 @@ int csummary(cflux_struct* cf, cstate_struct* cs, summary_struct* summary)
 	int ok=1;
 	double gpp,mr,gr,hr,fire;
 	double npp,nep,nee;
-	
+	double soil_resp; //add by Y.He, 11/13/15	
 	/* calculate daily NPP, positive for net growth */
 	/* NPP = Gross PSN - Maintenance Resp - Growth Resp */
 	gpp = cf->psnsun_to_cpool + cf->psnshade_to_cpool;
@@ -34,7 +34,11 @@ int csummary(cflux_struct* cf, cstate_struct* cs, summary_struct* summary)
 	hr = cf->litr1_hr + cf->litr2_hr + cf->litr4_hr + cf->soil1_hr +
 		cf->soil2_hr + cf->soil3_hr + cf->soil4_hr;
 	nep = npp - hr;
-	
+	soil_resp= hr + cf->froot_mr + cf->livecroot_mr + 
+		   cf->cpool_froot_gr + cf->cpool_froot_storage_gr + cf->transfer_froot_gr +
+		   cf->cpool_livecroot_gr + cf->cpool_livecroot_storage_gr + cf->transfer_livecroot_gr + 
+                   cf->cpool_deadcroot_gr + cf->cpool_deadcroot_storage_gr + cf->transfer_deadcroot_gr;
+	//add by Y.He 11/13/15
 	/* calculate daily NEE, positive for net sink */
 	/* NEE = NEP - fire losses */
 	fire = cf->m_leafc_to_fire + cf->m_frootc_to_fire + cf->m_leafc_storage_to_fire +
@@ -57,6 +61,7 @@ int csummary(cflux_struct* cf, cstate_struct* cs, summary_struct* summary)
 	summary->daily_mr = mr;
 	summary->daily_gr = gr;
 	summary->daily_hr = hr;
+	summary->daily_soil_resp = soil_resp; //add by Y.He, 11/13/15
 	summary->daily_fire = fire;
 	summary->cum_npp += npp;
 	summary->cum_nep += nep;

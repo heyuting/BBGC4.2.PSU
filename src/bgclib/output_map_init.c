@@ -552,6 +552,7 @@ psn_struct* psn_sun, psn_struct* psn_shade, summary_struct* summary)
 		output_map[650] = &summary->gresp;
 		output_map[651] = &summary->cpool;
 		output_map[652] = &summary->rootc;
+		output_map[653] = &summary->daily_soil_resp;
 	}
 	
 	return (!ok);

@@ -19,6 +19,7 @@ int zero_srcsnk(cstate_struct* cs, nstate_struct* ns, wstate_struct* ws,
 	/* zero the water sources and sinks  */
 	ws->prcp_src = 0.0;
 	ws->outflow_snk = 0.0;
+	ws->outflow_dummy_snk = 0.0; // add by Y. He Oct/14/2015
 	ws->soilevap_snk = 0.0;
 	ws->snowsubl_snk = 0.0;
 	ws->canopyevap_snk = 0.0;

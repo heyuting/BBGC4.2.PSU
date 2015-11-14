@@ -4,24 +4,24 @@ clc;
 Dir='/eddy/s0/users/yzh120/Research/BiomeBGC/GitHub/BBGC-SSH/BBGC4.2.PSU/Soilwater/';
 
  %load sc.annout.ascii
- fsoilw=fopen([Dir '2s3yr.txt']);
- VWC=textscan(fsoilw,repmat('%f',[1,2]),'HeaderLines',3);
+ fsoilw=fopen([Dir '4s4yr.txt']);
+ VWC=textscan(fsoilw,repmat('%f',[1,4]),'HeaderLines',3);
  fclose(fsoilw);
-%  VWC15=VWC{1}/100;
-%  VWC51=VWC{2}/100;
-%  VWC53=VWC{3}/100;
-%  VWC60=VWC{4}/100;
- VWC61=VWC{1}/100;
- VWC74=VWC{2}/100;
-[row, col]=size(VWC74);
+ VWC15=VWC{1}/100;
+ VWC51=VWC{2}/100;
+ VWC53=VWC{3}/100;
+ VWC60=VWC{4}/100;
+%  VWC61=VWC{1}/100;
+%  VWC74=VWC{2}/100;
+[row, col]=size(VWC60);
 
  %plot soil water content
- subplot(2,1,1);
+ subplot(3,1,1);
 %  figS15=plot(VWC15);
   grid;
 
  %hold;
- figS74=plot(VWC74);
+ figS60=plot(VWC60);
  
  title('Soil volumetric water content');
  axis([0 row 0 0.5])
@@ -45,21 +45,21 @@ Dir='/eddy/s0/users/yzh120/Research/BiomeBGC/GitHub/BBGC-SSH/BBGC4.2.PSU/Soilwat
 %         Theta_s = 0.293;
 %         Theta_r = 0.015;
 %site 60 - Planar - Weikert
-%         Alpha =0.106;
-%         Beta = 1.38;
-%         Theta_s = 0.306;
-%         Theta_r = 0.014;
+        Alpha =0.106;
+        Beta = 1.1;%1.38
+        Theta_s = 0.206;
+        Theta_r = 0.014;
 %site 61 - Valley - Blairton
-%       Alpha =0.03;
-%       Beta = 1.35;
-%       Theta_s = 0.384;
-%       Theta_r = 0.028;
+%        Alpha =0.03;
+%        Beta = 1.35;
+%        Theta_s = 0.384;
+%        Theta_r = 0.028;
 %  
 %site 74 - Ridgetop - Weikert
-      Alpha =0.095;
-      Beta = 1.34;
-      Theta_s =0.239;
-      Theta_r = 0.005;
+%       Alpha =0.095;
+%       Beta = 1.34;
+%       Theta_s =0.239;
+%       Theta_r = 0.005;
 
 psi_open=-ones(row)*0.34;
 
@@ -78,18 +78,18 @@ psi_open=-ones(row)*0.34;
 % psi_t2=-(1/Alpha)*((psi_t1).^(1/Beta));
 % psi=psi_t2*0.01*9.8*1000/1000000; %convert to Pa
 
-if VWC74>Theta_s
-    VWC74((VWC74>Theta_s),1)=Theta_s;
-end
-psi_t1=((VWC74-Theta_r)/(Theta_s-Theta_r)).^(Beta/(1-Beta))-1;
+%if VWC60>Theta_s
+    VWC60((VWC60>Theta_s),1)=Theta_s;
+%end
+psi_t1=((VWC60-Theta_r)/(Theta_s-Theta_r)).^(Beta/(1-Beta))-1;
 psi_t2=-(1/Alpha)*((psi_t1).^(1/Beta));
 psi=psi_t2*0.01*9.8*1000/1000000; %convert to Pa
 %plot soil water potential
 
-subplot(2,1,2);
+subplot(3,1,2);
 k=1:row;
 plot(k,psi);
-axis([0 row -2.2 0]);
+%axis([0 row -2.2 0]);
 title('Soil water potential');
 hold;
 grid;
@@ -97,3 +97,6 @@ plot(psi_open);
  xlabel('days','FontSize',12,'FontWeight','bold');
  ylabel('Soil water potential [MPa]','FontSize',12,'FontWeight','bold');
 
+ 
+ subplot(3,1,3);
+ plot(VWC60, psi,'o');

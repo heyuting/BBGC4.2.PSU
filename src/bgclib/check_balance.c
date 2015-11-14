@@ -14,7 +14,7 @@ int check_water_balance(wstate_struct* ws, int first_balance)
 {
 	int ok=1;
 	static double old_balance;
-	double in, out, store, balance;
+	double in, out, out_dummy, store, store_dummy, balance;
 	
 	/* DAILY CHECK ON WATER BALANCE */
 	
@@ -24,15 +24,17 @@ int check_water_balance(wstate_struct* ws, int first_balance)
 	/* sum of sinks */
 	out = ws->outflow_snk + ws->soilevap_snk + ws->snowsubl_snk + 
 		ws->canopyevap_snk + ws->trans_snk;
-		
+//	out_dummy =  ws->outflow_dummy_snk + ws->soilevap_snk + ws->snowsubl_snk +
+//                ws->canopyevap_snk + ws->trans_snk;	
 	/* sum of current storage */
 	//If we change soilw to soilWobs, it can't be balanced
 	//so we leave this part untouched. -- Y.He Oct/29/14
 	store = ws->soilw + ws->snoww + ws->canopyw;
+//	store_dummy = ws->soilWobs + ws->snoww + ws->canopyw;
 	//store = ws->soilWobs + ws->snoww + ws->canopyw;	
 	/* calculate current balance */
 	balance = in - out - store;
-	 
+//	balance = in - store_dummy - out_dummy;
 	if (!first_balance)
 	{
 		if (fabs(old_balance - balance) > 1e-4)
@@ -43,8 +45,8 @@ int check_water_balance(wstate_struct* ws, int first_balance)
 			bgc_printf(BV_ERROR, "Difference (previous - current) = %lf\n",old_balance-balance);
 			bgc_printf(BV_ERROR, "Components of current balance:\n");
 			bgc_printf(BV_ERROR, "Sources (summed over entire run)  = %lf\n",in);
-			bgc_printf(BV_ERROR, "Sinks   (summed over entire run)  = %lf\n",out);
-			bgc_printf(BV_ERROR, "Storage (current state variables) = %lf\n",store);
+			bgc_printf(BV_ERROR, "Sinks   (summed over entire run)  = %lf\n",out_dummy);
+			bgc_printf(BV_ERROR, "Storage (current state variables) = %lf\n",store_dummy);
 			bgc_printf(BV_ERROR, "Exiting...\n");
 			ok=0;
 		}

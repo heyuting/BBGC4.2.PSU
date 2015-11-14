@@ -44,47 +44,11 @@ double* vwc_out, wstate_struct* ws)
 	double vwc,psi_temp1,psi_temp2;
 	double Alpha, Beta, Theta_r, Theta_s, fc;// van Genuchten parameters
 
-/*	//site 15 - Valley - Ernest
-	Alpha = 0.046;
-	Beta = 1.28;
-	Theta_s = 0.583;
-	Theta_r = 0.049;
-	fc=0.573;
-
-	//site 51 - Swale - Rushtown
-	Alpha = 0.1;
-	Beta = 1.37;
-	Theta_s = 0.326;
-	Theta_r = 0.02;
- 	fc=0.276;
-
-	//site 53 - Swale - Berks
-	Alpha = 0.068;
-	Beta = 1.44;
-	Theta_s = 0.293;
-	Theta_r = 0.015;
-	fc=0.262;
-	//site 60 - Planar - Weikert
-	Alpha =0.106;
-	Beta = 1.38; 
-	Theta_s = 0.306;
-	Theta_r = 0.014; 
-	fc=0.233;
-*/
-	//site 61 - Valley - Blairton
-        Alpha =0.03;
-        Beta = 1.35;
-        Theta_s = 0.384;
-        Theta_r = 0.028;
-	fc = 0.370;
-/*
-	//site 74 - Ridgetop - Weikert/
-        Alpha = 0.138;//0.095
-        Beta = 1.22;//1.34
-        Theta_s = 0.379;//0.239
-        Theta_r = 0.1*Theta_s;//0.005
-//	fc = 0.156;//Calculated from water potential at -33kPa/
-*/
+	Alpha = sitec->obs_alpha;
+	Beta = sitec->obs_beta;
+	Theta_r = sitec->obs_theta_r;
+	Theta_s = sitec->obs_theta_s;
+	fc = sitec->obs_fc;
 
 	/* convert kg/m2 --> m3/m2 --> m3/m3 */
 	vwc = (soilWobs) / (1000.0 * sitec->soil_depth);//inputs are in %
@@ -94,7 +58,8 @@ double* vwc_out, wstate_struct* ws)
 	/* calculate psi */
 	//*psi = sitec->psi_sat * pow((vwc/sitec->vwc_sat), sitec->soil_b);
 	//printf("soil_psi_obs=%f, %f\n",*psi, sitec->psi_sat);
-	//we changed Cosby Equation to van Genuchten Equation.
+	
+	//Changed Cosby Equation to van Genuchten Equation.Y.He
 	if(vwc>Theta_s)
 	{
 	  vwc=Theta_s;

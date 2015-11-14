@@ -1,6 +1,6 @@
  clear all, close all;
  clc; 
- Dir='/eddy/s0/users/yzh120/Research/BiomeBGC/GitHub/BBGC-SSH/BBGC4.2.PSU/';
+ Dir='/eddy/s0/users/yzh120/Research/BiomeBGC/GitHub/BBGC-SSH/74BBGC/';
 
  %load sc.annout.ascii
  fannout=fopen([Dir 'outputs/sc.annout.ascii']);
